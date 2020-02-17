@@ -2,7 +2,7 @@ import uuid from 'react-uuid';
 
 
 export const initialState = {
-  todos = []
+  todos: [],
   item: 'Learn about reducers',
   completed: false, 
   id: uuid()
