@@ -1,13 +1,20 @@
-import React from "react";
+import React from 'react';
+
 
 const TodoList = props => {
 
-  const [todolist, setTodoList] = useState([])
-  return (
-    <div>
-      <p>TodoList</p>
-    </div>
-  );
-};
 
-export default TodoList
+    const complete = event =>{
+      event.preventDefault();
+      props.dispatch({type:'TOGGLE_COMPLETED', payload: event.target.id})
+    }
+    return(
+      <div>
+        {props.state.map(todo =>{
+          return <p  className={`${todo.completed ? 'completed' : ''}`}
+          id={todo.id} onClick={complete}>{todo.item}</p>
+        })}
+      </div>
+    )
+};
+export default TodoList;
