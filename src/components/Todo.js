@@ -14,6 +14,7 @@ const Todo = props => {
   } 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log("should be added to array", newTodo)
     props.dispatch({ type: "ADD_TODO", payload: newTodo });
     setNewTodo("");
   };
