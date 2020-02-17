@@ -1,18 +1,15 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 
 
-const TodoList = props => {
 
+const TodoList = ({state, dispatch, handleToggle}) => {
+  
 
-    const complete = event =>{
-      event.preventDefault();
-      props.dispatch({type:'TOGGLE_COMPLETED', payload: event.target.id})
-    }
     return(
       <div>
-        {props.state.map(todo =>{
+        {state.map(todo =>{
           return <p  className={`${todo.completed ? 'completed' : ''}`}
-          id={todo.id} onClick={complete}>{todo.item}</p>
+          id={todo.id} onClick={handleToggle}>Todo Item: {todo.item}  Completed: {String(todo.completed)}</p>
         })}
       </div>
     )

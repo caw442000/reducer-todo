@@ -1,6 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState, useReducer } from 'react';
+import {initialState, todoReducer} from '../reducers/todoReducer';
+import TodoList from './TodoList';
+
 
 const Todo = props => {
+  const [state, dispatch] = useReducer(todoReducer, initialState);
 
   const [newTodo, setNewTodo] = useState("");
 
@@ -10,15 +14,20 @@ const Todo = props => {
 
   const handleDelete = e => {
       e.preventDefault();
-      props.dispatch({type: 'CLEAR_COMPLETED'});
+      dispatch({type: 'CLEAR_COMPLETED'});
   } 
   const handleSubmit = e => {
     e.preventDefault();
     console.log("should be added to array", newTodo)
-    props.dispatch({ type: "ADD_TODO", payload: newTodo });
+    dispatch({ type: "ADD_TODO", payload: newTodo });
     setNewTodo("");
   };
 
+
+  const handleToggle = event =>{
+    event.preventDefault();
+    dispatch({type:'TOGGLE_COMPLETED', payload: event.target.id})
+  }
     return (
         <div>
             <form >
@@ -28,6 +37,8 @@ const Todo = props => {
             <button onClick={handleSubmit}>Add Todo</button>
 
             <button onClick={handleDelete}>Clear Completed Todos</button>
+
+            <TodoList state={state} dispatch={dispatch} handleToggle = {handleToggle} />
         </div>
     )
 }
